@@ -44,7 +44,7 @@ export const UserProfileDesktop = ({
               MK
             </span>
             <span className={cx(isCollapsed ? "hidden" : "block")}>
-              Manish Kumar
+              Pawan Kumar
             </span>
           </span>
         )}

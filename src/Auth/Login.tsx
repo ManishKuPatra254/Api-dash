@@ -15,12 +15,12 @@ export default function Login() {
         <Card className="w-full max-w-[400px] p-8">
           {/* Logo and Header */}
           <div className="mb-6 flex items-center">
-            <Text className="text-purple-500 text-2xl font-bold">sneat</Text>
+            <Text className="text-purple-500 text-2xl font-bold">Kaie</Text>
           </div>
 
           <div className="mb-8">
             <Title className="text-xl text-[#32325d] font-semibold mb-1">
-              Welcome to Sneat! 👋
+              Welcome to Kaie! 👋
             </Title>
             <Text className="text-[#6e6b7b] text-sm">
               Please sign-in to your account and start the adventure

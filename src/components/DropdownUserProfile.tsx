@@ -43,7 +43,7 @@ export function DropdownUserProfile({
           align={align}
           className="!min-w-[calc(var(--radix-dropdown-menu-trigger-width))]"
         >
-          <DropdownMenuLabel>manish.kumar@celerity.com</DropdownMenuLabel>
+          <DropdownMenuLabel>pawan.kumar@celerity.com</DropdownMenuLabel>
           <DropdownMenuGroup>
             <DropdownMenuSubMenu>
               <DropdownMenuSubMenuTrigger>Theme</DropdownMenuSubMenuTrigger>
