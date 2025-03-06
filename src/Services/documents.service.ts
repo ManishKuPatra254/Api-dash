@@ -1,34 +1,37 @@
-
 import axios from "axios";
 
-// me 
-
-interface MeResponse {
-
-    success: boolean;
-    data: {
-        "id" : string;
-        "name" : string;
-        "email" : string;
-        "role" : string;
-        "createdAt" : string;
-        "--v" : number;
-    };
-    
+interface ReportSummaryResponse {
+  success: boolean;
+  data: {
+    totalReports: number;
+    completedReports: number;
+    pendingReports: number;
+    startDate: string;
+    endDate: string;
+  };
 }
 
-export const me = async (
+export const getReportSummary = async (
+  startDate: string,
+  endDate: string,
+  token: string // Pass token as a parameter
+): Promise<ReportSummaryResponse> => {
+  try {
+    const response = await axios.get<ReportSummaryResponse>(
+      `https://kai-rbh7.onrender.com/api/reports/summary`,
+      {
+        params: { startDate, endDate }, // Send query parameters correctly
+        headers: {
+          "Authorization": `Bearer ${token}`, // Pass the token in headers
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  ): Promise<MeResponse> => {
-    try {
-      const response = await axios.get<MeResponse>(
-        `https://kai-rbh7.onrender.com/api/auth/me`
-      );
-  
-      return response.data;
-  
-    } catch (error: any) {
-      console.log("Login error", error.message);
-      throw error;
-    }
-  };
+    console.log(response.data, "Report Summary Response");
+    return response.data;
+  } catch (error) {
+    console.error("Report Summary Fetch Error:", error);
+    throw error;
+  }
+};
