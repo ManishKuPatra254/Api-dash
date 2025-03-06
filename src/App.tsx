@@ -1,5 +1,4 @@
 import { Fragment } from "react/jsx-runtime";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Auth/Login";
 import Dashboard from "./Dashboard/Dashboard";
