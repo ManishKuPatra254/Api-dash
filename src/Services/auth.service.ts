@@ -1,4 +1,6 @@
 import axios from "axios";
+// import Cookies from "js-cookie";
+const API_URL: string = import.meta.env.VITE_API_URL as string;
 
 const token = localStorage.getItem("token") || "";
 console.log(token);
@@ -21,7 +23,7 @@ export const registerUser = async (
 ): Promise<RegisterResponse> => {
   try {
     const responseContact = await axios.post<RegisterResponse>(
-      `https://kai-rbh7.onrender.com/api/auth/register`,
+      `${API_URL}/api/auth/register`,
       formData,
       {
         headers: {
@@ -31,8 +33,12 @@ export const registerUser = async (
     );
     console.log(responseContact.data, "responseContact");
     return responseContact.data;
-  } catch (error: any) {
-    console.log("Contact error", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log("Contact error", error.message);
+    } else {
+      console.log("Contact error", String(error));
+    }
     throw error;
   }
 };
@@ -55,13 +61,16 @@ export const loginUser = async (
   console.log(formData);
   try {
     const response = await axios.post<LoginResponse>(
-      `https://kai-rbh7.onrender.com/api/auth/login`,
+      `${API_URL}/api/auth/login`,
       formData
     );
-
     return response.data;
-  } catch (error: any) {
-    console.log("Login error", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log("Login error", error.message);
+    } else {
+      console.log("Login error", String(error));
+    }
     throw error;
   }
 };
@@ -84,13 +93,17 @@ export const logout = async (
   console.log(formData);
   try {
     const response = await axios.post<LogoutResponse>(
-      `https://kai-rbh7.onrender.com/api/auth/logout`,
+      `${API_URL}/api/auth/logout`,
       formData
     );
 
     return response.data;
-  } catch (error: any) {
-    console.log("Login error", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log("Login error", error.message);
+    } else {
+      console.log("Login error", String(error));
+    }
     throw error;
   }
 };
@@ -111,13 +124,15 @@ interface MeResponse {
 
 export const me = async (): Promise<MeResponse> => {
   try {
-    const response = await axios.get<MeResponse>(
-      `https://kai-rbh7.onrender.com/api/auth/me`
-    );
+    const response = await axios.get<MeResponse>(`${API_URL}/api/auth/me`);
 
     return response.data;
-  } catch (error: any) {
-    console.log("Login error", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log("Login error", error.message);
+    } else {
+      console.log("Login error", String(error));
+    }
     throw error;
   }
 };
