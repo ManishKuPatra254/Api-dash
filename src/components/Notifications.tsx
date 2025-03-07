@@ -111,7 +111,7 @@ const NotificationItem = ({ notification }: { notification: Notification }) => {
       >
         {/* Extend touch target to entire field */}
         <span aria-hidden="true" className="absolute inset-0" />
-        <p className="text-sm text-gray-900 dark:text-gray-50">
+        <p className="text-xs text-gray-900 dark:text-gray-50">
           {!read && (
             <span
               aria-hidden="true"
@@ -181,12 +181,18 @@ export function Notifications() {
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-50">
             Notifications
           </h2>
-          <Button variant="ghost">Mark {unreadCount} as read</Button>
+          <Button variant="ghost" className="text-xs">
+            Mark {unreadCount} as read
+          </Button>
         </div>
         <Tabs defaultValue="unread" className="mt-4">
-          <TabsList className="grid w-full grid-cols-2" variant="solid">
-            <TabsTrigger value="unread">Unread</TabsTrigger>
-            <TabsTrigger value="all">All</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2" variant="line">
+            <TabsTrigger value="unread" className="text-xs">
+              Unread
+            </TabsTrigger>
+            <TabsTrigger value="all" className="text-xs">
+              All
+            </TabsTrigger>
           </TabsList>
           <div className="mt-2">
             <TabsContent value="unread">
@@ -200,7 +206,7 @@ export function Notifications() {
                   aria-hidden="true"
                 />
               </div>
-              <Button variant="secondary" className="mt-2 w-full">
+              <Button variant="secondary" className="mt-2 w-full text-xs">
                 View all
               </Button>
             </TabsContent>
