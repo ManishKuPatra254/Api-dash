@@ -1,5 +1,5 @@
 import axios from "axios";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 const API_URL: string = import.meta.env.VITE_API_URL as string;
 
 const token = localStorage.getItem("token") || "";
@@ -55,6 +55,10 @@ interface LoginResponse {
   token: string;
 }
 
+interface TokenData {
+  token: string;
+}
+
 export const loginUser = async (
   formData: FormDataLogin
 ): Promise<LoginResponse> => {
@@ -64,6 +68,21 @@ export const loginUser = async (
       `${API_URL}/api/auth/login`,
       formData
     );
+
+    // Create token data object
+    const tokenData: TokenData = {
+      token: btoa(response.data.token), // Encrypt token using base64
+    };
+
+    // Get existing tokens or initialize empty array
+    const existingTokens = JSON.parse(Cookies.get("tokens") || "[]");
+
+    // Add new token to array
+    existingTokens.push(tokenData);
+
+    // Store updated tokens array in cookies
+    Cookies.set("tokens", JSON.stringify(existingTokens), { expires: 7 });
+
     return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -75,7 +94,17 @@ export const loginUser = async (
   }
 };
 
-// logout ......................................................
+// Helper function to get decrypted token
+export const getDecryptedToken = (): string | null => {
+  const tokens = JSON.parse(Cookies.get("tokens") || "[]");
+  if (tokens.length === 0) return null;
+
+  // Get the latest token
+  const latestToken = tokens[tokens.length - 1];
+  return atob(latestToken.token);
+};
+
+// logout ts api ...................................
 
 interface LogoutResponse {
   success: boolean;
@@ -87,7 +116,7 @@ interface FormDataLogout {
   password: string;
 }
 
-export const logout = async (
+export const logOutUser = async (
   formData: FormDataLogout
 ): Promise<LogoutResponse> => {
   console.log(formData);
@@ -96,6 +125,8 @@ export const logout = async (
       `${API_URL}/api/auth/logout`,
       formData
     );
+
+    Cookies.remove("tokens");
 
     return response.data;
   } catch (error: unknown) {
@@ -108,7 +139,7 @@ export const logout = async (
   }
 };
 
-// me
+// me ts api ...................................
 
 interface MeResponse {
   success: boolean;
