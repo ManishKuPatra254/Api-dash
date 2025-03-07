@@ -75,7 +75,7 @@ export const loginUser = async (
   }
 };
 
-// logout ......................................................
+// logout API ......................................................
 
 interface LogoutResponse {
   success: boolean;
